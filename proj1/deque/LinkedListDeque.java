@@ -1,6 +1,8 @@
 package deque;
 
-public class LinkedListDeque<T> {
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     public class Node {
         private Node next;
         private Node prev;
@@ -34,6 +36,7 @@ public class LinkedListDeque<T> {
         front.next = back;
     }
 
+    @Override
     public void addFirst(T item)
     {
         front.next = new Node(item, front.next, front);
@@ -45,6 +48,7 @@ public class LinkedListDeque<T> {
         size++;
     }
 
+    @Override
     public void addLast(T item)
     {
         back.prev.next = new Node(item, back, back.prev);
@@ -52,16 +56,13 @@ public class LinkedListDeque<T> {
         size++;
     }
 
-    public boolean isEmpty()
-    {
-        return (size == 0);
-    }
-
+    @Override
     public int size()
     {
         return size;
     }
 
+    @Override
     public void printDeque() {
         Node deq = this.front.next;
         while (deq.next != null)
@@ -72,6 +73,7 @@ public class LinkedListDeque<T> {
         System.out.println();
     }
 
+    @Override
     public T removeFirst()
     {
         if (size == 0)
@@ -85,6 +87,7 @@ public class LinkedListDeque<T> {
         return item;
     }
 
+    @Override
     public T removeLast()
     {
         if (size == 0)
@@ -98,6 +101,7 @@ public class LinkedListDeque<T> {
         return item;
     }
 
+    @Override
     public T get(int index)
     {
         Node n = front.next;
@@ -130,11 +134,32 @@ public class LinkedListDeque<T> {
         return getItem(n.next, index - 1);
     }
 
-//    public Iterator<T> iterator()
-//    {
-//        // TODO
-//    }
+    @Override
+    public Iterator<T> iterator()
+    {
+        return new LinkedListIterator();
+    }
 
+    private class LinkedListIterator implements Iterator<T>
+    {
+        Node currNode;
+        LinkedListIterator()
+        {
+            currNode = front.next;
+        }
+
+        public boolean hasNext() {
+            return currNode.next != null;
+        }
+
+        public T next() {
+            T nextItem = currNode.item;
+            currNode = currNode.next;
+            return nextItem;
+        }
+    }
+
+    @Override
     public boolean equals(Object o)
     {
         if (o instanceof LinkedListDeque)

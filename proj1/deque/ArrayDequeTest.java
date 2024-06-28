@@ -71,11 +71,11 @@ public class ArrayDequeTest {
     public void removeFirstTest2()
     {
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        for (int i = 1; i <= 16; i++)
+        for (int i = 1; i <= 100000; i++)
         {
             arrayDeque.addLast(i);
         }
-        for (int i = 1; i <= 16; i++)
+        for (int i = 1; i <= 100000; i++)
         {
             assertEquals(i, (int) arrayDeque.removeFirst());
         }
@@ -88,11 +88,11 @@ public class ArrayDequeTest {
     public void removeLastTest1()
     {
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        for (int i = 1; i <= 16; i++)
+        for (int i = 1; i <= 100000; i++)
         {
             arrayDeque.addLast(i);
         }
-        for (int i = 16; i >= 1; i--)
+        for (int i = 100000; i >= 1; i--)
         {
             assertEquals(i, (int) arrayDeque.removeLast());
         }
@@ -131,4 +131,19 @@ public class ArrayDequeTest {
         assertFalse(arrayDeque1.equals(dequeElements));
     }
 
+    @Test
+    public void testIterator()
+    {
+        ArrayDeque<Integer> deq1 = new ArrayDeque<>();
+        deq1.addFirst(2);
+        deq1.addFirst(1);
+        deq1.addLast(3);
+
+        int y = 1;
+        for (int i : deq1)
+        {
+            assertEquals(y, i);
+            y++;
+        }
+    }
 }

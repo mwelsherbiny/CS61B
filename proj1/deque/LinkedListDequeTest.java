@@ -1,6 +1,9 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 
@@ -154,6 +157,22 @@ public class LinkedListDequeTest {
         deq1.addLast(3);
         int[] arr = new int[]{1, 2, 3};
         assertFalse(deq1.equals(arr));
+    }
+
+    @Test
+    public void testIterator()
+    {
+        LinkedListDeque<Integer> deq1 = new LinkedListDeque<>();
+        deq1.addFirst(2);
+        deq1.addFirst(1);
+        deq1.addLast(3);
+
+        int y = 1;
+        for (int i : deq1)
+        {
+            assertEquals(y, i);
+            y++;
+        }
     }
 
 }
