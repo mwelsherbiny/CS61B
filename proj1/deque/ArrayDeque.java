@@ -7,16 +7,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     private int first;
     private int last;
 
-    public ArrayDeque()
-    {
+    public ArrayDeque() {
         items = (T[]) new Object[8];
         first = 4;
         last = 4;
     }
 
     @Override
-    public void addFirst(T item)
-    {
+    public void addFirst(T item) {
         if (first == 0)
         {
             double capacity = items.length * 1.5;
@@ -31,8 +29,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public void addLast(T item)
-    {
+    public void addLast(T item) {
         if (last == items.length - 1)
         {
             double capacity = items.length * 1.5;
@@ -46,8 +43,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         size++;
     }
 
-    private void resize(int capacity)
-    {
+    private void resize(int capacity) {
         T[] arr = (T[]) new Object[capacity];
         int startIndex = (capacity - size) / 2;
         System.arraycopy(items, first, arr, startIndex, size);
@@ -57,8 +53,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public int size()
-    {
+    public int size() {
         return size;
     }
 
@@ -67,9 +62,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         System.out.print(this);
     }
 
-    @Override
-    public String toString()
-    {
+    private String getString() {
         if (size == 0)
         {
             return "";
@@ -84,8 +77,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public T removeFirst()
-    {
+    public T removeFirst() {
         if (size == 0)
         {
             return null;
@@ -102,8 +94,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public T removeLast()
-    {
+    public T removeLast() {
         if (size == 0)
         {
             return null;
@@ -119,8 +110,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         return item;
     }
 
-    private void checkUsageFactor()
-    {
+    private void checkUsageFactor() {
         if (items.length >= 16 && size < items.length / 4)
         {
             int capacity = items.length / 2;
@@ -129,19 +119,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public T get(int index)
-    {
+    public T get(int index) {
         return items[first + index];
     }
 
     @Override
-    public Iterator<T> iterator()
-    {
+    public Iterator<T> iterator() {
         return new ArrayListIterator();
     }
 
-    private class ArrayListIterator implements Iterator<T>
-    {
+    private class ArrayListIterator implements Iterator<T> {
         private int pos;
         ArrayListIterator()
         {
@@ -160,8 +147,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (o instanceof ArrayDeque)
         {
             return compareDeque(this, (ArrayDeque<T>) o);
@@ -169,8 +155,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         return false;
     }
 
-    private boolean compareDeque(ArrayDeque<T> deq1, ArrayDeque<T> deq2)
-    {
+    private boolean compareDeque(ArrayDeque<T> deq1, ArrayDeque<T> deq2) {
         if (deq1.size() != deq2.size())
         {
             return false;

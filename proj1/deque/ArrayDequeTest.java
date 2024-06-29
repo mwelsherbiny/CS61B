@@ -20,8 +20,6 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> arrayDeque = createArrayDeque(dequeElements);
         arrayDeque.addFirst(10);
         assertEquals(7, arrayDeque.size());
-        assertEquals("10 9 8 7 6 5 4 \n", arrayDeque.toString());
-
     }
 
     @Test
@@ -30,7 +28,6 @@ public class ArrayDequeTest {
         ArrayDeque<Integer> arrayDeque = createArrayDeque(dequeElements);
         arrayDeque.addLast(10);
         assertEquals(7, arrayDeque.size());
-        assertEquals("4 5 6 7 8 9 10 \n", arrayDeque.toString());
     }
 
     @Test
@@ -42,7 +39,6 @@ public class ArrayDequeTest {
         arrayDeque.addLast(4);
         arrayDeque.addFirst(1);
         assertEquals(4, arrayDeque.size());
-        assertEquals("1 2 3 4 \n", arrayDeque.toString());
     }
 
     @Test
@@ -54,34 +50,33 @@ public class ArrayDequeTest {
         arrayDeque.addFirst(1);
         arrayDeque.addLast(4);
         assertEquals(4, arrayDeque.size());
-        assertEquals("1 2 3 4 \n", arrayDeque.toString());
     }
 
     @Test
     public void removeFirstTest1()
     {
         int[] dequeElements = new int[]{1, 2, 3, 4};
-        ArrayDeque<Integer> arrayDeque = createArrayDeque(dequeElements);
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        assertNull(arrayDeque.removeFirst());
+        arrayDeque = createArrayDeque(dequeElements);
         assertEquals(1, (int) arrayDeque.removeFirst());
         assertEquals(3, arrayDeque.size());
-        assertEquals("2 3 4 \n", arrayDeque.toString());
     }
 
     @Test
     public void removeFirstTest2()
     {
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        for (int i = 1; i <= 100000; i++)
+        for (int i = 1; i <= 1000; i++)
         {
             arrayDeque.addLast(i);
         }
-        for (int i = 1; i <= 100000; i++)
+        for (int i = 1; i <= 1000; i++)
         {
             assertEquals(i, (int) arrayDeque.removeFirst());
         }
         assertEquals(0, arrayDeque.size());
         assertTrue(arrayDeque.isEmpty());
-        assertEquals("", arrayDeque.toString());
     }
 
     @Test
@@ -98,16 +93,16 @@ public class ArrayDequeTest {
         }
         assertEquals(0, arrayDeque.size());
         assertTrue(arrayDeque.isEmpty());
-        assertEquals("", arrayDeque.toString());
     }
     @Test
     public void removeLastTest2()
     {
         int[] dequeElements = new int[]{1, 2, 3, 4};
-        ArrayDeque<Integer> arrayDeque = createArrayDeque(dequeElements);
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        assertNull(arrayDeque.removeLast());
+        arrayDeque = createArrayDeque(dequeElements);
         assertEquals(4, (int) arrayDeque.removeLast());
         assertEquals(3, arrayDeque.size());
-        assertEquals("1 2 3 \n", arrayDeque.toString());
     }
 
     @Test

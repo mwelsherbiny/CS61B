@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
-    public class Node {
+    private class Node {
         private Node next;
         private Node prev;
         private T item;
@@ -19,26 +19,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     private Node back;
     private int size;
 
-    public LinkedListDeque(T item)
-    {
-        Node first = new Node(item, null, null);
-        front = new Node(null, first, null);
-        back = new Node(null, null, first);
-        first.next = back;
-        first.prev = front;
-        size++;
-    }
-
-    public LinkedListDeque()
-    {
+    public LinkedListDeque() {
         front = new Node(null, null, null);
         back = new Node(null, null, front);
         front.next = back;
     }
 
     @Override
-    public void addFirst(T item)
-    {
+    public void addFirst(T item) {
         front.next = new Node(item, front.next, front);
         front.next.next.prev = front.next;
         if (size == 0)
@@ -49,16 +37,14 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public void addLast(T item)
-    {
+    public void addLast(T item) {
         back.prev.next = new Node(item, back, back.prev);
         back.prev = back.prev.next;
         size++;
     }
 
     @Override
-    public int size()
-    {
+    public int size() {
         return size;
     }
 
@@ -74,8 +60,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public T removeFirst()
-    {
+    public T removeFirst() {
         if (size == 0)
         {
             return null;
@@ -88,8 +73,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public T removeLast()
-    {
+    public T removeLast() {
         if (size == 0)
         {
             return null;
@@ -102,8 +86,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public T get(int index)
-    {
+    public T get(int index) {
         Node n = front.next;
         for (int i = 0; i < index; i++)
         {
@@ -116,13 +99,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return n.item;
     }
 
-    public T getRecursive(int index)
-    {
+    public T getRecursive(int index) {
         return getItem(front.next, index);
     }
 
-    private T getItem(Node n, int index)
-    {
+    private T getItem(Node n, int index) {
         if (n.next == null)
         {
             return null;
@@ -135,13 +116,11 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public Iterator<T> iterator()
-    {
+    public Iterator<T> iterator() {
         return new LinkedListIterator();
     }
 
-    private class LinkedListIterator implements Iterator<T>
-    {
+    private class LinkedListIterator implements Iterator<T> {
         Node currNode;
         LinkedListIterator()
         {
@@ -160,8 +139,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     @Override
-    public boolean equals(Object o)
-    {
+    public boolean equals(Object o) {
         if (o instanceof LinkedListDeque)
         {
             return compareDeque(this, (LinkedListDeque<T>) o);
@@ -169,8 +147,7 @@ public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
         return false;
     }
 
-    private boolean compareDeque(LinkedListDeque<T> deq1, LinkedListDeque<T> deq2)
-    {
+    private boolean compareDeque(LinkedListDeque<T> deq1, LinkedListDeque<T> deq2) {
         if (deq1.size() != deq2.size())
         {
             return false;
