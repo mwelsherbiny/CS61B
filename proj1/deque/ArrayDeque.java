@@ -47,8 +47,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
         T[] arr = (T[]) new Object[capacity];
         int startIndex = (capacity - size) / 2;
         System.arraycopy(items, first, arr, startIndex, size);
+        int diff = last - first;
         first = startIndex;
-        last = startIndex + size - 1;
+        last = startIndex + diff;
         items = arr;
     }
 

@@ -141,4 +141,22 @@ public class ArrayDequeTest {
             y++;
         }
     }
+
+    @Test
+    public void randomTest()
+    {
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        arrayDeque.addFirst(0);
+        arrayDeque.addLast(1);
+        arrayDeque.addLast(2);
+        arrayDeque.addLast(3);
+        arrayDeque.removeLast();
+        arrayDeque.addLast(5);
+        arrayDeque.removeFirst();
+        arrayDeque.removeFirst();
+        arrayDeque.removeFirst();
+        arrayDeque.removeFirst();
+        arrayDeque.addLast(10);
+        arrayDeque.removeFirst();
+    }
 }
