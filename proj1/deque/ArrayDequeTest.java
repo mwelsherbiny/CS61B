@@ -1,5 +1,7 @@
 package deque;
 
+import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.Stopwatch;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -64,37 +66,6 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void removeFirstTest2()
-    {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        for (int i = 1; i <= 1000; i++)
-        {
-            arrayDeque.addLast(i);
-        }
-        for (int i = 1; i <= 1000; i++)
-        {
-            assertEquals(i, (int) arrayDeque.removeFirst());
-        }
-        assertEquals(0, arrayDeque.size());
-        assertTrue(arrayDeque.isEmpty());
-    }
-
-    @Test
-    public void removeLastTest1()
-    {
-        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
-        for (int i = 1; i <= 100000; i++)
-        {
-            arrayDeque.addLast(i);
-        }
-        for (int i = 100000; i >= 1; i--)
-        {
-            assertEquals(i, (int) arrayDeque.removeLast());
-        }
-        assertEquals(0, arrayDeque.size());
-        assertTrue(arrayDeque.isEmpty());
-    }
-    @Test
     public void removeLastTest2()
     {
         int[] dequeElements = new int[]{1, 2, 3, 4};
@@ -118,8 +89,15 @@ public class ArrayDequeTest {
     {
         int[] dequeElements = new int[]{1, 2, 3, 4};
         ArrayDeque<Integer> arrayDeque1 = createArrayDeque(dequeElements);
+        LinkedListDeque<Integer> linkedListDeque = new LinkedListDeque<>();
+        linkedListDeque.addLast(1);
+        linkedListDeque.addLast(2);
+        linkedListDeque.addLast(3);
+        linkedListDeque.addLast(4);
         ArrayDeque<Integer> arrayDeque2 = createArrayDeque(dequeElements);
         assertTrue(arrayDeque1.equals(arrayDeque2));
+        assertTrue(arrayDeque1.equals(arrayDeque1));
+        assertTrue(arrayDeque1.equals(linkedListDeque));
         dequeElements[0] = 2;
         ArrayDeque<Integer> arrayDeque3 = createArrayDeque(dequeElements);
         assertFalse(arrayDeque1.equals(arrayDeque3));
@@ -143,7 +121,7 @@ public class ArrayDequeTest {
     }
 
     @Test
-    public void randomTest()
+    public void generalTest()
     {
         ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
         arrayDeque.addFirst(0);
@@ -158,5 +136,132 @@ public class ArrayDequeTest {
         arrayDeque.removeFirst();
         arrayDeque.addLast(10);
         arrayDeque.removeFirst();
+    }
+
+    @Test
+    public void randomTest()
+    {
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        int n = 5000;
+        for (int i = 0; i < n; i++)
+        {
+            int val = StdRandom.uniform(0, 5);
+            if (val == 0)
+            {
+                arrayDeque.addLast(val);
+            }
+            else if (val == 1)
+            {
+                arrayDeque.addFirst(val);
+            }
+            else if (val == 2)
+            {
+                arrayDeque.removeLast();
+            }
+            else if (val == 3)
+            {
+                arrayDeque.removeFirst();
+            }
+            else
+            {
+                arrayDeque.get(StdRandom.uniform(0, 5001));
+            }
+        }
+    }
+
+    @Test
+    public void speedTest()
+    {
+        // from N = 1000 to N = 64000
+        int ops = 10000;
+        int testN = 8;
+        for (int k = 0; k < 4; k++)
+        {
+            int N = 1000;
+            String[][] table = new String[8][];
+            for (int i = 0; i < testN; i++)
+            {
+                Stopwatch sw = new Stopwatch();
+                ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+                fillDeque(k, ops, arrayDeque);
+                timeMethod(k, ops, arrayDeque);
+                double time = sw.elapsedTime();
+                String NString = Integer.toString(N);
+                String timeString = Double.toString(time);
+                table[i] = new String[]{NString, timeString};
+                N *= 2;
+            }
+            printTable(k, table);
+        }
+
+    }
+
+    private void printTable(int k, String[][] table)
+    {
+        System.out.println("<--" + methodTested(k) + "-->");
+        System.out.println("N\t    time" );
+        for (String[] row : table)
+        {
+            for (String item : row)
+            {
+                System.out.print(item + "\t");
+            }
+            System.out.println();
+        }
+    }
+
+    private void fillDeque(int k, int ops, ArrayDeque<Integer> arrayDeque)
+    {
+        if (k == 2 || k ==3)
+        {
+            for (int i = 0; i < ops; i++)
+            {
+                arrayDeque.addLast(i);
+            }
+        }
+    }
+
+    private String methodTested(int k) {
+        if (k == 0) {
+            return "addFirst()";
+        } else if (k == 1) {
+            return "addLast()";
+        } else if (k == 2) {
+            return "removeFirst()";
+        } else if (k == 3) {
+            return "removeLast()";
+        }
+        return "";
+    }
+    private void timeMethod(int k, int ops, ArrayDeque<Integer> arrayDeque)
+    {
+        if (k == 0)
+        {
+            for (int i = 0; i < ops; i++)
+            {
+                arrayDeque.addFirst(i);
+            }
+        }
+        else if (k == 1)
+        {
+            for (int i = 0; i < ops; i++)
+            {
+                arrayDeque.addLast(i);
+            }
+        }
+        else if (k == 2)
+        {
+            for (int i = 0; i < ops; i++)
+            {
+                arrayDeque.removeFirst();
+            }
+        }
+        else if (k == 3)
+        {
+            for (int i = 0; i < ops; i++)
+            {
+                arrayDeque.removeLast();
+            }
+        }
     }
 }

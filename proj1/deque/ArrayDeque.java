@@ -121,7 +121,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public T get(int index) {
-        return items[first + index];
+        if (index < size)
+        {
+            return items[first + index];
+        }
+        return null;
     }
 
     @Override
@@ -149,21 +153,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>{
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof ArrayDeque)
+        if (o instanceof Deque)
         {
-            return compareDeque(this, (ArrayDeque<T>) o);
+            return compareDeque(this, (Deque<T>) o);
         }
         return false;
     }
 
-    private boolean compareDeque(ArrayDeque<T> deq1, ArrayDeque<T> deq2) {
+    private boolean compareDeque(ArrayDeque<T> deq1, Deque<T> deq2) {
         if (deq1.size() != deq2.size())
         {
             return false;
         }
-        for (int i = first; i <= last; i++)
+        for (int i = 0; i < size; i++)
         {
-            if (deq1.items[first] != deq2.items[first])
+            if (!(deq1.get(i).equals(deq2.get(i))))
             {
                 return false;
             }
