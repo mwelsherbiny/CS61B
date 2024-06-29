@@ -156,6 +156,11 @@ public class LinkedListDequeTest {
         deq1.addFirst(2);
         deq1.addFirst(1);
         deq1.addLast(3);
+        ArrayDeque<Integer> arrayDeque = new ArrayDeque<>();
+        arrayDeque.addLast(1);
+        arrayDeque.addLast(2);
+        arrayDeque.addLast(3);
+        assertTrue(deq1.equals(arrayDeque));
         int[] arr = new int[]{1, 2, 3};
         assertFalse(deq1.equals(arr));
     }
